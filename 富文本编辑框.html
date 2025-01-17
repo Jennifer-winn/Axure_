@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wangEditor</title>
+    <!-- 只保留编辑器必需的样式 -->
+    <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
+    <style>
+        .editor-container {
+            width: 100%;
+            /* 可以设置为百分比或固定像素，如 800px */
+            max-width: 1400px;
+            /* 设置最大宽度 */
+            margin: 0px auto;
+            /* 居中显示 */
+            padding: 0px;
+            /* 添加内边距 */
+            border: 1px solid #ccc;
+            /* 添加边框 */
+            border-radius: 0px;
+            /* 添加圆角 */
+            background-color: #ffffff;
+            /* 设置背景色 */
+        }
+
+        #editor-text-area {
+            height: 400px;
+            /* 设置文本区域的高度 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="editor-container">
+        <!-- 编辑器容器 -->
+        <div>
+            <div id="editor-toolbar" style="border-bottom: 1px solid #ccc;"></div>
+            <div id="editor-text-area"></div>
+        </div>
+
+        <!-- 文字统计（已删除） -->
+    </div>
+
+    <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+    <script>
+        const E = window.wangEditor;
+
+        const LANG = location.href.indexOf('lang=en') > 0 ? 'en' : 'zh-CN';
+        E.i18nChangeLanguage(LANG);
+
+        const initialHtml = `
+            <div style="text-align: center;">
+                <strong>XX公司统计监督报告</strong>
+            </div>
+            <b>一、监督检查时间</b><br>
+            20XX年X月<br>
+            <b>二、检查范围</b><br>
+            涵盖个人、家庭、政企三个市场X项重点产品，覆盖X项统计监督模型。<br>
+            <b>三、检查发现问题</b><br>
+            通过系统模型运行检查发现X项问题,请关注。<br>
+            1.按照监督领域：个人市场X项、家庭市场X项、政企市场X项。具体如下
+                    个人市场：XX
+                    家庭市场：XX
+            2.按照监督维度，数据真实性X项、高质量发展X项、发展趋势X项。
+                    数据真实性:
+                    高质量发展：
+                    发展趋势：
+
+            `;
+
+        window.editor = E.createEditor({
+            selector: '#editor-text-area',
+            html: initialHtml,
+            config: {
+                placeholder: 'Type here...',
+            }
+        });
+
+        window.toolbar = E.createToolbar({
+            editor,
+            selector: '#editor-toolbar',
+            config: {}
+        });
+    </script>
+</body>
+
+</html>
